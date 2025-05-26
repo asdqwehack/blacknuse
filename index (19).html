@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackNuse - 프리미엄 웹사이트</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @font-face {
+            font-family: 'KimjungchulGothic-Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        :root {
+            /* Light Theme */
+            --bg-primary: #E4E9F7;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: linear-gradient(180deg, #11101D 0%, #1d1b31 100%);
+            --text-primary: #11101d;
+            --text-secondary: #666;
+            --text-white: #ffffff;
+            --accent-primary: linear-gradient(135deg, #667eea, #764ba2);
+            --accent-hover: linear-gradient(135deg, #5a6fd8, #6a4190);
+            --border-color: #ddd;
+            --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-sidebar: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-white: #ffffff;
+            --border-color: #444;
+            --shadow-light: 0 2px 10px rgba(0,0,0,0.3);
+            --shadow-medium: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-heavy: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "KimjungchulGothic-Bold";
+        }
+
+        /* 홈페이지 스타일 */
+        .main-layout {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo h1 {
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: #667eea;
+        }
+
+        .banner_main {
+            padding: 120px 0 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-bg h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .text-bg a {
+            background: var(--accent-primary);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: inline-block;
+        }
+
+        .text-bg a:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .service, .solutions {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .service:nth-child(even) {
+            background: var(--bg-primary);
+        }
+
+        .titlepage h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .titlepage span {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .read_more {
+            background: var(--accent-primary);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-light);
+            display: inline-block;
+        }
+
+        .read_more:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* 대시보드 스타일 */
+        .dashboard-layout {
+            display: none;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* 사이드바 완벽 대칭 수정 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 280px;
+            background: var(--bg-sidebar);
+            padding: 20px;
+            z-index: 99;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+            padding: 20px 10px; /* 좌우 패딩 조정 */
+        }
+
+        .sidebar .logo-details {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* 접힘 시 중앙 정렬 */
+            position: relative;
+            margin-bottom: 30px;
+            padding: 0;
+        }
+
+        .sidebar.collapsed .logo-details {
+            justify-content: center;
+        }
+
+        .sidebar .logo-details .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar .logo-details .logo_name {
+            color: var(--text-white);
+            font-size: 22px;
+            font-weight: 600;
+            margin-left: 15px;
+            transition: all 0.5s ease;
+            white-space: nowrap;
+        }
+
+        .sidebar.collapsed .logo-details .logo_name {
+            opacity: 0;
+            pointer-events: none;
+            margin-left: 0;
+        }
+
+        /* 메뉴 아이템 완벽 중앙 정렬 */
+        .sidebar li a {
+            display: flex;
+            height: 50px;
+            width: 100%;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: flex-start;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: 0 15px;
+        }
+
+        .sidebar.collapsed li a {
+            justify-content: center;
+            padding: 0;
+        }
+
+        .sidebar li i {
+            font-size: 20px;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar li a .links_name {
+            color: var(--text-white);
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.collapsed li a .links_name {
+            opacity: 0;
+            pointer-events: none;
+            margin-left: 0;
+        }
+
+        /* 프로필 완벽 중앙 정렬 */
+        .sidebar .profile {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            width: auto;
+            height: 70px;
+            background: var(--accent-primary);
+            border-radius: 15px;
+            padding: 10px 15px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .sidebar.collapsed .profile {
+            left: 20px;
+            right: 20px;
+            width: auto;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .sidebar .profile-details {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            gap: 12px;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .sidebar.collapsed .profile-details {
+            justify-content: center;
+            gap: 0;
+        }
+
+        .sidebar .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        .sidebar .profile-info {
+            flex: 1;
+            min-width: 0;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .profile-info {
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            flex: 0;
+        }
+
+        .sidebar .profile-actions {
+            display: flex;
+            gap: 6px;
+            transition: all 0.5s ease;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .profile-actions {
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            flex: 0;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar .logo-details {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .sidebar .logo-details .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar .logo-details .logo_name {
+            color: var(--text-white);
+            font-size: 22px;
+            font-weight: 600;
+            margin-left: 15px;
+            transition: all 0.5s ease;
+            white-space: nowrap;
+        }
+
+        .sidebar.collapsed .logo-details .logo_name {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar .nav-list {
+            height: calc(100% - 200px);
+            overflow-y: auto;
+        }
+
+        .sidebar .nav-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar .nav-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar .nav-list::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+
+        .sidebar li {
+            position: relative;
+            margin: 8px 0;
+            list-style: none;
+        }
+
+        .sidebar li a {
+            display: flex;
+            height: 50px;
+            width: 100%;
+            border-radius: 12px;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: 0 15px;
+        }
+
+        .sidebar li a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar li a.active {
+            background: var(--accent-primary);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar li a .links_name {
+            color: var(--text-white);
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.collapsed li a .links_name {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar li a:hover .links_name,
+        .sidebar li a:hover i {
+            color: var(--text-white);
+        }
+
+        .sidebar li i {
+            font-size: 20px;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+        }
+
+        /* 개선된 프로필 스타일 */
+        .sidebar .profile {
+            position: fixed;
+            bottom: 20px;
+            margin: 0 10px;
+            width: calc(100% - 40px); /* 양쪽 마진 고려 */
+            max-width: 240px;
+            height: 70px;
+            background: var(--accent-primary);
+            border-radius: 15px;
+            padding: 10px 15px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .profile {
+            width: 60px;
+            max-width: 60px;
+            margin: 0 10px;
+        }
+
+        .sidebar .profile-details {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .sidebar .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            flex-shrink: 0; /* 크기 고정 */
+        }
+
+        .sidebar .profile-info {
+            flex: 1;
+            min-width: 0; /* 텍스트 오버플로우를 위해 필요 */
+            transition: all 0.5s ease;
+            overflow: hidden; /* 오버플로우 숨김 */
+        }
+
+        .sidebar.collapsed .profile-info {
+            opacity: 0;
+            pointer-events: none;
+            width: 0; /* 완전히 숨김 */
+        }
+
+        .sidebar .profile .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* 긴 텍스트는 ... 으로 표시 */
+            margin-bottom: 2px;
+            max-width: 120px; /* 최대 너비 제한 */
+        }
+
+        .sidebar .profile .job {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px; /* 최대 너비 제한 */
+        }
+
+        .sidebar .profile-actions {
+            display: flex;
+            gap: 6px;
+            transition: all 0.5s ease;
+            flex-shrink: 0; /* 크기 고정 */
+        }
+
+        .sidebar.collapsed .profile-actions {
+            opacity: 0;
+            pointer-events: none;
+            width: 0; /* 완전히 숨김 */
+        }
+
+        .sidebar .profile-btn {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .sidebar .profile-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* 메인 콘텐츠 */
+        .home-section {
+            margin-left: 280px;
+            min-height: 100vh;
+            background: var(--bg-primary);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 30px;
+        }
+
+        .sidebar.collapsed ~ .home-section {
+            margin-left: 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        /* 버튼 스타일 개선 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-family: "KimjungchulGothic-Bold";
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .button-red {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .button-yellow {
+            background: linear-gradient(135deg, #ffd93d, #ff9500);
+        }
+
+        .button-green {
+            background: linear-gradient(135deg, #6bcf7f, #4caf50);
+        }
+
+        .button-blue {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .button:active {
+            transform: translateY(-1px);
+        }
+
+        /* 에디터 스타일 */
+        .editor-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-color);
+        }
+
+        #editor {
+            height: 70vh;
+            width: 100%;
+        }
+
+        /* 게임 카드 스타일 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-card-content {
+            padding: 20px;
+        }
+
+        .game-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .game-card-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .game-card-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .game-card-button {
+            width: 100%;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-card-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* 규칙 스타일 */
+        .rules-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        .rule-number {
+            width: 30px;
+            height: 30px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .rule-text {
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* 설정 모달 */
+        .settings-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .settings-modal.active {
+            display: flex;
+        }
+
+        .settings-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--border-color);
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .settings-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-settings {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-settings:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .setting-group {
+            margin-bottom: 25px;
+        }
+
+        .setting-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .setting-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .setting-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* 토글 스위치 */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--border-color);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--accent-primary);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .sidebar .logo-details .logo_name,
+            .sidebar li a .links_name,
+            .sidebar .profile-info,
+            .sidebar .profile-actions {
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            .sidebar .profile {
+                width: 60px;
+            }
+            
+            .home-section {
+                margin-left: 80px;
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        /* 페이지 전환 애니메이션 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 로딩 애니메이션 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 사이드바 토글 버튼 */
+        .sidebar-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1001;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+            display: none;
+        }
+
+        .dashboard-layout.active .sidebar-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-heavy);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- 홈페이지 -->
+    <div id="home-page" class="page active main-layout">
+        <header>
+            <div class="header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="logo">
+                            <div class="logo-icon">
+                                <i class='bx bxs-capsule'></i>
+                            </div>
+                            <h1>BlackNuse</h1>
+                        </div>
+                        <nav class="navigation">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#서비스">서비스</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://discord.gg/vXWQ4wZRdH" target="_blank">디스코드</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="showDashboard()">로그인</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="banner_main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="flex: 1;">
+                        <div class="text-bg">
+                            <h1>한국 최초 <br> 웹 서버사이드</h1>
+                            <a href="#" onclick="showDashboard()">로그인 하기</a>
+                        </div>
+                    </div>
+                    <div style="flex: 1; text-align: center;">
+                        <img src="/placeholder.svg?height=400&width=400" alt="Banner Image" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="서비스" class="service">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="flex: 1; text-align: center;">
+                        <img src="/placeholder.svg?height=300&width=400" alt="PC Image" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div style="flex: 1;">
+                        <div class="titlepage">
+                            <h2>완벽한 웹사이트 <br>서버사이드 구동환경</h2>
+                            <span>서버사이드 스크립트들을 웹에서 구해 로블록스 환경으로 복사 붙여넣기 하는 것은 번거로우며 인게임 UI는 매우 거슬리고 게임에 지장을 줍니다. <br>스크립트를 복사 붙여넣기 하는것만으로 스크립트를 실행할 수 있습니다.</span>
+                            <a class="read_more" href="#" onclick="showDashboard()">사용해보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="solutions">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="flex: 1;">
+                        <div class="titlepage">
+                            <h2>디스코드를 통한 구매</h2>
+                            <span>블랙너스 서버사이드는 디스코드를 통한 구매만을 받습니다.<br>문상,계좌이체를 통해 서버사이드를 구매할 수 있습니다.<br> 블랙너스 디스코드에서 확인하세요!</span>
+                            <a class="read_more" href="https://discord.gg/vXWQ4wZRdH" target="_blank">디스코드</a>
+                        </div>
+                    </div>
+                    <div style="flex: 1; text-align: center;">
+                        <img src="https://i.pinimg.com/originals/cf/64/fc/cf64fcce5cc8296544516488631ad676.png" alt="Discord" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 대시보드 -->
+    <div id="dashboard-page" class="page dashboard-layout">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class='bx bx-menu'></i>
+        </button>
+
+        <div class="sidebar" id="sidebar">
+            <div class="logo-details">
+                <div class="icon">
+                    <i class='bx bxs-capsule'></i>
+                </div>
+                <div class="logo_name">BlackNuse</div>
+            </div>
+            
+            <ul class="nav-list">
+                <li>
+                    <a onclick="showSection('editor')" data-section="editor">
+                        <i class='bx bx-code-alt'></i>
+                        <span class="links_name">에디터</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="registerRoblox()">
+                        <i class='bx bxs-id-card'></i>
+                        <span class="links_name">로블록스 등록</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="showSection('rule')" data-section="rule">
+                        <i class='bx bx-shield-check'></i>
+                        <span class="links_name">규칙</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="showSection('games')" data-section="games">
+                        <i class='bx bx-game'></i>
+                        <span class="links_name">게임 목록</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://discord.gg/vXWQ4wZRdH" target="_blank">
+                        <i class='bx bxl-discord-alt'></i>
+                        <span class="links_name">디스코드</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="openSettings()">
+                        <i class='bx bx-cog'></i>
+                        <span class="links_name">설정</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="profile">
+                <div class="profile-details">
+                    <img id="profile-avatar" class="profile-avatar" src="/placeholder.svg?height=50&width=50" alt="Profile">
+                    <div class="profile-info">
+                        <div class="name" id="profile-name">사용자</div>
+                        <div class="job">Premium</div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-btn" onclick="openSettings()" title="설정">
+                            <i class='bx bx-cog'></i>
+                        </button>
+                        <button class="profile-btn" onclick="showHome()" title="로그아웃">
+                            <i class='bx bx-log-out'></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="home-section">
+            <!-- 에디터 섹션 -->
+            <div id="editor-section" class="section active">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class='bx bx-code-alt'></i>
+                        스크립트 실행기
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="button button-red" onclick="executeScript()">
+                        <i class='bx bx-play'></i>
+                        Execute
+                    </button>
+                    <button class="button button-yellow" onclick="clearEditor()">
+                        <i class='bx bx-trash'></i>
+                        Clear
+                    </button>
+                    <button class="button button-blue" onclick="executeR6()">
+                        <i class='bx bx-universal-access'></i>
+                        R6
+                    </button>
+                    <button class="button button-green" onclick="executeRE()">
+                        <i class='bx bx-refresh'></i>
+                        RE
+                    </button>
+                </div>
+                
+                <div class="editor-container">
+                    <div id="editor"></div>
+                </div>
+            </div>
+
+            <!-- 규칙 섹션 -->
+            <div id="rule-section" class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class='bx bx-shield-check'></i>
+                        이용 규칙
+                    </div>
+                </div>
+                
+                <div class="rules-container">
+                    <div class="rule-item">
+                        <div class="rule-number">1</div>
+                        <div class="rule-text">🚫 감염된 게임 유출 금지</div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number">2</div>
+                        <div class="rule-text">💥 맵을 심각하게 파괴 할 수 있는 스크립트는 실행 금지</div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number">3</div>
+                        <div class="rule-text">🤐 서버사이드 감염 사실 언급 금지</div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number">4</div>
+                        <div class="rule-text">🏷️ 서버사이드 이름 언급 금지</div>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number">5</div>
+                        <div class="rule-text">⚠️ 허위 신고 금지</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 게임 목록 섹션 -->
+            <div id="games-section" class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class='bx bx-game'></i>
+                        감염 게임 목록
+                    </div>
+                </div>
+                
+                <div class="games-grid">
+                    <div class="game-card">
+                        <img src="/placeholder.svg?height=200&width=320" alt="Game 1">
+                        <div class="game-card-content">
+                            <div class="game-card-title">Adopt Me!</div>
+                            <div class="game-card-description">펫을 키우고 친구들과 함께 즐기는 게임</div>
+                            <div class="game-card-stats">
+                                <i class='bx bx-user'></i>
+                                <span>150,000 플레이어</span>
+                            </div>
+                            <button class="game-card-button" onclick="window.open('#', '_blank')">
+                                <i class='bx bx-external-link'></i>
+                                게임 접속
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <img src="/placeholder.svg?height=200&width=320" alt="Game 2">
+                        <div class="game-card-content">
+                            <div class="game-card-title">Brookhaven RP</div>
+                            <div class="game-card-description">롤플레이 게임으로 다양한 역할을 체험</div>
+                            <div class="game-card-stats">
+                                <i class='bx bx-user'></i>
+                                <span>120,000 플레이어</span>
+                            </div>
+                            <button class="game-card-button" onclick="window.open('#', '_blank')">
+                                <i class='bx bx-external-link'></i>
+                                게임 접속
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <img src="/placeholder.svg?height=200&width=320" alt="Game 3">
+                        <div class="game-card-content">
+                            <div class="game-card-title">Tower of Hell</div>
+                            <div class="game-card-description">어려운 장애물을 극복하는 파쿠르 게임</div>
+                            <div class="game-card-stats">
+                                <i class='bx bx-user'></i>
+                                <span>80,000 플레이어</span>
+                            </div>
+                            <button class="game-card-button" onclick="window.open('#', '_blank')">
+                                <i class='bx bx-external-link'></i>
+                                게임 접속
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 설정 모달 -->
+    <div id="settings-modal" class="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <div class="settings-title">
+                    <i class='bx bx-cog'></i>
+                    설정
+                </div>
+                <button class="close-settings" onclick="closeSettings()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">테마</label>
+                <select class="setting-select" id="theme-select" onchange="changeTheme()">
+                    <option value="light">라이트 모드</option>
+                    <option value="dark">다크 모드</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">언어</label>
+                <select class="setting-select" id="language-select" onchange="changeLanguage()">
+                    <option value="ko">한국어</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">사이드바 자동 접기</label>
+                <div class="toggle-switch" id="auto-collapse-toggle" onclick="toggleAutoCollapse()">
+                    <div class="toggle-slider"></div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">알림 소리</label>
+                <div class="toggle-switch active" id="sound-toggle" onclick="toggleSound()">
+                    <div class="toggle-slider"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+    <script>
+        let editor;
+        let currentSection = 'editor';
+        let robloxUsername = '';
+        let settings = {
+            theme: 'light',
+            language: 'ko',
+            autoCollapse: false,
+            sound: true
+        };
+
+        // 언어 데이터
+        const translations = {
+            ko: {
+                scriptEditor: '스크립트 실행기',
+                rules: '이용 규칙',
+                gameList: '감염 게임 목록',
+                settings: '설정',
+                theme: '테마',
+                language: '언어',
+                lightMode: '라이트 모드',
+                darkMode: '다크 모드',
+                autoCollapse: '사이드바 자동 접기',
+                soundNotification: '알림 소리'
+            },
+            en: {
+                scriptEditor: 'Script Editor',
+                rules: 'Rules',
+                gameList: 'Game List',
+                settings: 'Settings',
+                theme: 'Theme',
+                language: 'Language',
+                lightMode: 'Light Mode',
+                darkMode: 'Dark Mode',
+                autoCollapse: 'Auto Collapse Sidebar',
+                soundNotification: 'Sound Notification'
+            },
+            ja: {
+                scriptEditor: 'スクリプトエディター',
+                rules: 'ルール',
+                gameList: 'ゲームリスト',
+                settings: '設定',
+                theme: 'テーマ',
+                language: '言語',
+                lightMode: 'ライトモード',
+                darkMode: 'ダークモード',
+                autoCollapse: 'サイドバー自動折りたたみ',
+                soundNotification: '通知音'
+            }
+        };
+
+        // 페이지 전환 함수
+        function showHome() {
+            document.getElementById('home-page').classList.add('active');
+            document.getElementById('dashboard-page').classList.remove('active');
+        }
+
+        function showDashboard() {
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('dashboard-page').classList.add('active');
+            
+            if (!editor) {
+                initializeEditor();
+            }
+        }
+
+        // 섹션 전환 함수
+        function showSection(sectionName) {
+            // 모든 섹션 숨기기
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+            
+            // 모든 네비게이션 링크에서 active 클래스 제거
+            const navLinks = document.querySelectorAll('.sidebar li a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // 선택된 섹션 보이기
+            const targetSection = document.getElementById(sectionName + '-section');
+            targetSection.style.display = 'block';
+            setTimeout(() => {
+                targetSection.classList.add('active');
+            }, 10);
+            
+            // 해당 네비게이션 링크에 active 클래스 추가
+            const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            currentSection = sectionName;
+        }
+
+        // 사이드바 토글
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Monaco Editor 초기화 (Lua 자동완성 포함)
+        function initializeEditor() {
+            require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' } });
+            require(['vs/editor/editor.main'], function () {
+                // Lua 언어 설정
+                monaco.languages.register({ id: 'lua' });
+        
+                // Lua 키워드 및 함수 정의
+                const luaKeywords = [
+                    'and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for',
+                    'function', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat',
+                    'return', 'then', 'true', 'until', 'while'
+                ];
+        
+                const luaBuiltins = [
+                    'print', 'pairs', 'ipairs', 'next', 'type', 'getmetatable', 'setmetatable',
+                    'rawget', 'rawset', 'rawequal', 'rawlen', 'tostring', 'tonumber',
+                    'pcall', 'xpcall', 'error', 'assert', 'select', 'unpack', 'pack',
+                    'table', 'string', 'math', 'io', 'os', 'debug', 'coroutine',
+                    'utf8', 'package', 'require', 'load', 'loadfile', 'dofile'
+                ];
+        
+                const robloxAPI = [
+                    'game', 'workspace', 'script', 'wait', 'spawn', 'delay', 'tick',
+                    'Instance', 'Vector3', 'CFrame', 'Color3', 'UDim2', 'BrickColor',
+                    'Players', 'RunService', 'UserInputService', 'TweenService',
+                    'ReplicatedStorage', 'ServerStorage', 'StarterGui', 'StarterPack',
+                    'Lighting', 'SoundService', 'PathfindingService', 'HttpService'
+                ];
+        
+                // 자동완성 제공자 등록
+                monaco.languages.registerCompletionItemProvider('lua', {
+                    provideCompletionItems: function(model, position) {
+                        const suggestions = [];
+                
+                        // Lua 키워드 추가
+                        luaKeywords.forEach(keyword => {
+                            suggestions.push({
+                                label: keyword,
+                                kind: monaco.languages.CompletionItemKind.Keyword,
+                                insertText: keyword,
+                                detail: 'Lua keyword'
+                            });
+                        });
+                
+                        // Lua 내장 함수 추가
+                        luaBuiltins.forEach(builtin => {
+                            suggestions.push({
+                                label: builtin,
+                                kind: monaco.languages.CompletionItemKind.Function,
+                                insertText: builtin,
+                                detail: 'Lua built-in function'
+                            });
+                        });
+                
+                        // Roblox API 추가
+                        robloxAPI.forEach(api => {
+                            suggestions.push({
+                                label: api,
+                                kind: monaco.languages.CompletionItemKind.Class,
+                                insertText: api,
+                                detail: 'Roblox API'
+                            });
+                        });
+                
+                        // 일반적인 Roblox 스크립트 스니펫
+                        suggestions.push({
+                            label: 'for loop',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: 'for i = 1, ${1:10} do\n\t${2:-- code}\nend',
+                            insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                            detail: 'For loop snippet'
+                        });
+                
+                        suggestions.push({
+                            label: 'function',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: 'function ${1:functionName}(${2:parameters})\n\t${3:-- code}\nend',
+                            insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                            detail: 'Function snippet'
+                        });
+                
+                        suggestions.push({
+                            label: 'if statement',
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: 'if ${1:condition} then\n\t${2:-- code}\nend',
+                            insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                            detail: 'If statement snippet'
+                        });
+                
+                        return { suggestions: suggestions };
+                    }
+                });
+        
+                // 테마 설정
+                const theme = settings.theme === 'dark' ? 'vs-dark' : 'vs';
+        
+                // 에디터 생성
+                editor = monaco.editor.create(document.getElementById('editor'), {
+                    value: '-- Lua Script Editor\nprint("Hello, Roblox!")\n\n-- 자동완성을 위해 Ctrl+Space를 누르세요',
+                    language: 'lua',
+                    theme: theme,
+                    automaticLayout: true,
+                    fontSize: 14,
+                    lineNumbers: 'on',
+                    roundedSelection: false,
+                    scrollBeyondLastLine: false,
+                    minimap: { enabled: true },
+                    suggestOnTriggerCharacters: true,
+                    quickSuggestions: {
+                        other: true,
+                        comments: false,
+                        strings: false
+                    },
+                    parameterHints: {
+                        enabled: true
+                    },
+                    wordBasedSuggestions: true,
+                    folding: true,
+                    foldingStrategy: 'indentation',
+                    showFoldingControls: 'always',
+                    wordWrap: 'on',
+                    wrappingIndent: 'indent'
+                });
+        
+                // 키보드 단축키 추가
+                editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function() {
+                    // Ctrl+S로 스크립트 저장 (로컬 스토리지)
+                    const content = editor.getValue();
+                    localStorage.setItem('blacknuse-script', content);
+                    Swal.fire({
+                        title: '저장 완료',
+                        text: '스크립트가 로컬에 저장되었습니다.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                });
+        
+                // 저장된 스크립트 불러오기
+                const savedScript = localStorage.getItem('blacknuse-script');
+                if (savedScript) {
+                    editor.setValue(savedScript);
+                }
+            });
+        }
+
+        // 로블록스 프로필 이미지 가져오기
+        async function getRobloxProfileImage(username) {
+            try {
+                const userResponse = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+                
+                if (!userResponse.ok) {
+                    throw new Error('사용자를 찾을 수 없습니다');
+                }
+                
+                const userData = await userResponse.json();
+                const userId = userData.Id;
+                
+                const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
+                
+                if (!avatarResponse.ok) {
+                    throw new Error('프로필 이미지를 가져올 수 없습니다');
+                }
+                
+                const avatarData = await avatarResponse.json();
+                
+                if (avatarData.data && avatarData.data.length > 0) {
+                    return avatarData.data[0].imageUrl;
+                } else {
+                    throw new Error('프로필 이미지가 없습니다');
+                }
+                
+            } catch (error) {
+                console.error('로블록스 프로필 가져오기 실패:', error);
+                return '/placeholder.svg?height=50&width=50';
+            }
+        }
+
+        // 프로필 업데이트
+        async function updateProfile(username) {
+            const profileAvatar = document.getElementById('profile-avatar');
+            const profileName = document.getElementById('profile-name');
+            
+            profileName.innerHTML = '<div class="loading"></div>';
+            
+            try {
+                const imageUrl = await getRobloxProfileImage(username);
+                profileAvatar.src = imageUrl;
+                profileName.textContent = username;
+                robloxUsername = username;
+                
+                localStorage.setItem('robloxUsername', username);
+                localStorage.setItem('robloxProfileImage', imageUrl);
+                
+            } catch (error) {
+                profileName.textContent = '사용자';
+                profileAvatar.src = '/placeholder.svg?height=50&width=50';
+            }
+        }
+
+        // 에디터 함수들
+        function clearEditor() {
+            if (editor) {
+                editor.setValue('');
+                if (settings.sound) playNotificationSound();
+            }
+        }
+
+        function executeScript() {
+            if (editor) {
+                const script = editor.getValue();
+                Swal.fire({
+                    title: '실행 완료',
+                    text: '스크립트가 성공적으로 실행되었습니다!',
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                });
+                if (settings.sound) playNotificationSound();
+            }
+        }
+
+        function executeR6() {
+            Swal.fire({
+                title: 'R6 실행',
+                text: 'R6 스크립트가 실행되었습니다.',
+                icon: 'success',
+                confirmButtonText: '확인'
+            });
+            if (settings.sound) playNotificationSound();
+        }
+
+        function executeRE() {
+            Swal.fire({
+                title: 'RE 실행',
+                text: '리스폰 스크립트가 실행되었습니다.',
+                icon: 'success',
+                confirmButtonText: '확인'
+            });
+            if (settings.sound) playNotificationSound();
+        }
+
+        // 로블록스 등록
+        function registerRoblox() {
+            Swal.fire({
+                title: '로블록스 닉네임 등록',
+                text: '표시 이름이 아닌 사용자 이름이어야 합니다',
+                input: 'text',
+                inputPlaceholder: '로블록스 사용자 이름 입력',
+                showCancelButton: true,
+                confirmButtonText: '등록',
+                cancelButtonText: '취소',
+                showLoaderOnConfirm: true,
+                preConfirm: async (username) => {
+                    if (!username) {
+                        Swal.showValidationMessage('사용자 이름을 입력해주세요');
+                        return false;
+                    }
+                    
+                    try {
+                        const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+                        if (!response.ok) {
+                            throw new Error('사용자를 찾을 수 없습니다');
+                        }
+                        return username;
+                    } catch (error) {
+                        Swal.showValidationMessage('존재하지 않는 사용자 이름입니다');
+                        return false;
+                    }
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    await updateProfile(result.value);
+                    Swal.fire({
+                        title: '등록 완료!',
+                        text: `로블록스 계정 "${result.value}"이 등록되었습니다.`,
+                        icon: 'success',
+                        confirmButtonText: '확인',
+                    });
+                }
+            });
+        }
+
+        // 설정 관련 함수들
+        function openSettings() {
+            document.getElementById('settings-modal').classList.add('active');
+            loadSettings();
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.remove('active');
+        }
+
+        function loadSettings() {
+            document.getElementById('theme-select').value = settings.theme;
+            document.getElementById('language-select').value = settings.language;
+            
+            const autoCollapseToggle = document.getElementById('auto-collapse-toggle');
+            const soundToggle = document.getElementById('sound-toggle');
+            
+            if (settings.autoCollapse) {
+                autoCollapseToggle.classList.add('active');
+            } else {
+                autoCollapseToggle.classList.remove('active');
+            }
+            
+            if (settings.sound) {
+                soundToggle.classList.add('active');
+            } else {
+                soundToggle.classList.remove('active');
+            }
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById('theme-select').value;
+            settings.theme = theme;
+            document.body.setAttribute('data-theme', theme);
+            
+            // Monaco Editor 테마 변경
+            if (editor) {
+                const editorTheme = theme === 'dark' ? 'vs-dark' : 'vs';
+                monaco.editor.setTheme(editorTheme);
+            }
+            
+            saveSettings();
+        }
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            settings.language = language;
+            updateLanguage();
+            saveSettings();
+        }
+
+        function updateLanguage() {
+            const lang = translations[settings.language];
+            
+            // 섹션 제목 업데이트
+            document.querySelector('#editor-section .section-title').innerHTML = `<i class='bx bx-code-alt'></i>${lang.scriptEditor}`;
+            document.querySelector('#rule-section .section-title').innerHTML = `<i class='bx bx-shield-check'></i>${lang.rules}`;
+            document.querySelector('#games-section .section-title').innerHTML = `<i class='bx bx-game'></i>${lang.gameList}`;
+            
+            // 설정 모달 업데이트
+            document.querySelector('.settings-title').innerHTML = `<i class='bx bx-cog'></i>${lang.settings}`;
+        }
+
+        function toggleAutoCollapse() {
+            const toggle = document.getElementById('auto-collapse-toggle');
+            toggle.classList.toggle('active');
+            settings.autoCollapse = toggle.classList.contains('active');
+            saveSettings();
+        }
+
+        function toggleSound() {
+            const toggle = document.getElementById('sound-toggle');
+            toggle.classList.toggle('active');
+            settings.sound = toggle.classList.contains('active');
+            saveSettings();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('blacknuse-settings', JSON.stringify(settings));
+        }
+
+        function loadStoredSettings() {
+            const stored = localStorage.getItem('blacknuse-settings');
+            if (stored) {
+                settings = { ...settings, ...JSON.parse(stored) };
+                document.body.setAttribute('data-theme', settings.theme);
+                updateLanguage();
+            }
+        }
+
+        function playNotificationSound() {
+            // 간단한 알림음 (Web Audio API 사용)
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // 초기 설정
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStoredSettings();
+            showSection('editor');
+            
+            // 저장된 로블록스 정보 불러오기
+            const savedUsername = localStorage.getItem('robloxUsername');
+            const savedProfileImage = localStorage.getItem('robloxProfileImage');
+            
+            if (savedUsername && savedProfileImage) {
+                document.getElementById('profile-name').textContent = savedUsername;
+                document.getElementById('profile-avatar').src = savedProfileImage;
+                robloxUsername = savedUsername;
+            }
+
+            // 모달 외부 클릭 시 닫기
+            document.getElementById('settings-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeSettings();
+                }
+            });
+
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeSettings();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
