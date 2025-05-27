@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackNuse - 이용 규칙</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/rules.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn">
+                <i class='bx bx-home'></i> 홈
+            </a>
+            <a href="dashboard.html" class="nav-btn">
+                <i class='bx bx-dashboard'></i> 대시보드
+            </a>
+            <a href="admin.html" class="nav-btn">
+                <i class='bx bx-crown'></i> 어드민 패널
+            </a>
+            <a href="blacklist.html" class="nav-btn">
+                <i class='bx bx-block'></i> 블랙리스트
+            </a>
+            <a href="games.html" class="nav-btn">
+                <i class='bx bx-game'></i> 게임 목록
+            </a>
+            <a href="roblox-accounts.html" class="nav-btn">
+                <i class="bx bxl-android"></i> 로블록스 계정
+            </a>
+        </div>
+
+        <div class="header">
+            <h1>
+                <i class='bx bx-shield-alt'></i>
+                이용 규칙
+            </h1>
+        </div>
+
+        <div id="security-check" class="security-warning" style="display: none;">
+            ⚠️ VPN 또는 프록시 사용이 감지되었습니다. 접근이 제한됩니다.
+        </div>
+
+        <div class="warning-section">
+            <h2>
+                <i class='bx bx-error'></i>
+                중요 공지
+            </h2>
+            <p>
+                BlackNuse 서버사이드를 이용하기 전에 반드시 아래 규칙을 숙지하시기 바랍니다. 
+                규칙 위반 시 계정 정지 또는 영구 차단될 수 있습니다.
+            </p>
+        </div>
+        
+        <div class="rules-container">
+            <div class="rule-item">
+                <div class="rule-number">1</div>
+                <div>
+                    <div class="rule-text">감염된 게임 유출 금지</div>
+                    <div class="rule-description">
+                        서버사이드로 감염된 게임의 정보를 외부에 유출하거나 공유하는 행위를 금지합니다. 
+                        이는 서비스의 보안과 지속성을 위한 필수 규칙입니다.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rule-item">
+                <div class="rule-number">2</div>
+                <div>
+                    <div class="rule-text">맵을 심각하게 파괴할 수 있는 스크립트 실행 금지</div>
+                    <div class="rule-description">
+                        게임의 맵이나 구조물을 완전히 파괴하여 다른 플레이어의 게임 경험을 심각하게 해치는 스크립트 사용을 금지합니다.
+                        적당한 수준의 장난은 허용되지만, 과도한 파괴는 제재 대상입니다.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rule-item">
+                <div class="rule-number">3</div>
+                <div>
+                    <div class="rule-text">서버사이드 감염 사실 언급 금지</div>
+                    <div class="rule-description">
+                        게임 내에서 서버사이드가 감염되었다는 사실을 언급하거나 알리는 행위를 금지합니다. 
+                        이는 서비스 노출을 방지하기 위한 중요한 규칙입니다.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rule-item">
+                <div class="rule-number">4</div>
+                <div>
+                    <div class="rule-text">서버사이드 이름 언급 금지</div>
+                    <div class="rule-description">
+                        게임 내에서 "BlackNuse" 또는 기타 서버사이드 관련 이름을 언급하는 것을 금지합니다. 
+                        익명성 유지가 서비스 지속의 핵심입니다.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rule-item">
+                <div class="rule-number">5</div>
+                <div>
+                    <div class="rule-text">허위 신고 금지, all 금지, 무적 스크립트 금지</div>
+                    <div class="rule-description">
+                        다른 플레이어에 대한 허위 신고, 모든 플레이어를 대상으로 하는 스크립트(all), 
+                        무적 상태를 만드는 스크립트 사용을 금지합니다. 공정한 게임 환경 유지가 목적입니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-item">
+                <div class="rule-number">6</div>
+                <div>
+                    <div class="rule-text">계정 공유 및 키 양도 금지</div>
+                    <div class="rule-description">
+                        개인에게 발급된 인증 키나 계정을 다른 사람과 공유하거나 양도하는 것을 금지합니다. 
+                        1인 1계정 원칙을 준수해야 합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-item">
+                <div class="rule-number">7</div>
+                <div>
+                    <div class="rule-text">악성 스크립트 업로드 금지</div>
+                    <div class="rule-description">
+                        바이러스, 트로이목마 등 악성 코드가 포함된 스크립트를 업로드하거나 실행하는 것을 금지합니다. 
+                        보안 위협이 될 수 있는 모든 행위는 즉시 차단됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-item">
+                <div class="rule-number">8</div>
+                <div>
+                    <div class="rule-text">상업적 이용 금지</div>
+                    <div class="rule-description">
+                        BlackNuse 서비스를 상업적 목적으로 이용하거나 유료 서비스로 재판매하는 것을 금지합니다. 
+                        개인적인 용도로만 사용해야 합니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="penalty-section">
+            <h3>
+                <i class='bx bx-gavel'></i>
+                위반 시 제재 조치
+            </h3>
+            <ul class="penalty-list">
+                <li>
+                    <span class="penalty-level level-1">1차 위반</span>
+                    경고 및 7일 계정 정지
+                </li>
+                <li>
+                    <span class="penalty-level level-2">2차 위반</span>
+                    30일 계정 정지 및 키 재발급 불가
+                </li>
+                <li>
+                    <span class="penalty-level level-3">3차 위반</span>
+                    영구 계정 차단 및 IP 블랙리스트 등록
+                </li>
+                <li>
+                    <span class="penalty-level level-3">심각한 위반</span>
+                    즉시 영구 차단 (악성 스크립트, 서비스 공격 등)
+                </li>
+            </ul>
+        </div>
+
+        <div class="contact-section">
+            <h3>문의 및 신고</h3>
+            <p>규칙 위반 신고나 서비스 관련 문의사항이 있으시면 디스코드로 연락해주세요.</p>
+            <a href="https://discord.gg/vXWQ4wZRdH" target="_blank" class="discord-btn">
+                <i class='bx bxl-discord-alt'></i>
+                디스코드 서버 참여
+            </a>
+        </div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/security.js"></script>
+    <script>
+        let securityManager;
+
+        async function init() {
+            securityManager = new SecurityManager();
+            await FirebaseDataManager.initializeDefaultData();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
